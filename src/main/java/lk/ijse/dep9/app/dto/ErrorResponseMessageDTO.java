@@ -12,8 +12,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class ErrorResponseMessageDTO implements Serializable {
     private String message;
-    private String status;
-
-
+    private int status;
 
 }

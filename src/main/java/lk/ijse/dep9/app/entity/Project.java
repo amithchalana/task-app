@@ -29,7 +29,7 @@ public class Project implements SuperEntity {
     // fetch : onetoMany, manytoone : automatically task list come with project ()
     // cascade : remove task with the project
     @Setter(AccessLevel.NONE)
-    private Set<Tasks> taskSet = new HashSet<>();
+    private Set<Task> taskSet = new HashSet<>();
 
 
     public Project(String name, User user) {

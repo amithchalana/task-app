@@ -12,6 +12,13 @@ public class Transformer {
 
     private ModelMapper mapper;
 
+    public Transformer(ModelMapper mapper) {
+        this.mapper = mapper;
+    }
+
+    public UserDTO userDTO(User user) {
+        return mapper.map(user,UserDTO.class);
+    }
 
     public User toUser(UserDTO dto) {
         return mapper.map(dto,User.class);

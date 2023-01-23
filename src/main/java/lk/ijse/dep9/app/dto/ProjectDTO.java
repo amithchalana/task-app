@@ -23,4 +23,7 @@ public class ProjectDTO {
     @Length(min = 3,message = "Project name should be at least three characters")
     private String name;
 
+
+    private String username;
+
 }

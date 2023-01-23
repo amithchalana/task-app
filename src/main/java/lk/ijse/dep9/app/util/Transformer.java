@@ -1,6 +1,8 @@
 package lk.ijse.dep9.app.util;
 
+import lk.ijse.dep9.app.dto.ProjectDTO;
 import lk.ijse.dep9.app.dto.UserDTO;
+import lk.ijse.dep9.app.entity.Project;
 import lk.ijse.dep9.app.entity.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,14 @@ public class Transformer {
     public User toUser(UserDTO dto) {
         return mapper.map(dto,User.class);
 
+    }
+
+    public Project toProject(ProjectDTO projectDTO) {
+        return mapper.map(projectDTO,Project.class);
+    }
+
+    public ProjectDTO toProjectDTO(Project project) {
+        return mapper.map(project, ProjectDTO.class);
     }
 
 }

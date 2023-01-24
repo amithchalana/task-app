@@ -30,5 +30,9 @@ public class Task implements SuperEntity {
         this.status = status;
         this.project = project;
     }
+
+    public enum Status{
+        COMPLETED,NOT_COMPLETED
+    }
 }
 

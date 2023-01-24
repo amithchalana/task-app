@@ -18,7 +18,7 @@ public class Project implements SuperEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)  // allow to auto generated to dbms
     private int id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
     @ManyToOne

@@ -5,6 +5,7 @@ import lk.ijse.dep9.app.service.custom.ProjectTaskService;
 import lk.ijse.dep9.app.util.ValidationGroups;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,46 +18,47 @@ import java.util.List;
 public class ProjectController {
 
 
+    private ProjectTaskService projectTaskService;
 
-    private final ProjectTaskService projectTaskService;
-
-
-    @Autowired
     public ProjectController(ProjectTaskService projectTaskService) {
         this.projectTaskService = projectTaskService;
     }
 
-
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "application/json", produces = "application/json")
-    private ProjectDTO createNewProject(@Validated(ValidationGroups.Create.class) ProjectDTO projectDTO, @RequestAttribute String username){
+    private ProjectDTO createNewProject(
+            @Validated(ValidationGroups.Create.class) @RequestBody ProjectDTO projectDTO,
+            @AuthenticationPrincipal(expression = "username") String username){
         projectDTO.setUsername(username);
-        return ProjectTaskService.createNewProject(projectDTO);
+        return projectTaskService.createNewProject(projectDTO);
     }
 
     @GetMapping(produces = "application/json")
-    private List<ProjectDTO> getAllProjects(@RequestAttribute String username){
-        return ProjectTaskService.getAllProjects(username);
+    public List<ProjectDTO> getAllProjects(@AuthenticationPrincipal(expression = "username") String username){
+        return projectTaskService.getAllProjects(username);
     }
 
-    @GetMapping(value = "/{application:\\d+}",produces = "application/json")
-    private ProjectDTO getProject(@PathVariable int projectId, @RequestAttribute String username, @PathVariable String application){
-        return projectTaskService.getProjectDetails(username,projectId);
-    }
-
-
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping(value = "/{application:\\d+}", consumes = "application/json")
-    private void renameProject(@PathVariable int projectId, @RequestBody ProjectDTO projectDTO , @RequestAttribute String username ){
-        projectTaskService.renameProject(projectDTO);
-
+    @GetMapping(value = "/{projectId:\\d+}", produces = "application/json")
+    public ProjectDTO getProject(@PathVariable int projectId,
+                                 @AuthenticationPrincipal(expression = "username") String username){
+        return projectTaskService.getProjectDetails(username, projectId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping(value = "{projectId:\\d+}")
-    private void deleteProject(@PathVariable int projectId, @RequestAttribute String username){
-        projectTaskService.deleteProject(username,projectId);
+    @PatchMapping(value = "/{projectId:\\d+}", consumes = "application/json")
+    public void renameProject(@PathVariable int projectId,
+                              @Validated @RequestBody ProjectDTO project,
+                              @AuthenticationPrincipal(expression = "username") String username){
+        project.setId(projectId);
+        project.setUsername(username);
+        projectTaskService.renameProject(project);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(value = "/{projectId:\\d+}")
+    public void deleteProject(@PathVariable int projectId,
+                              @AuthenticationPrincipal(expression = "username") String username){
+        projectTaskService.deleteProject(username, projectId);
+    }
 
 }

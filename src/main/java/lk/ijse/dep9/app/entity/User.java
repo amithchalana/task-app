@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class User implements SuperEntity {
     @Id
-    private String userName;
+    private String username;
     @Column(nullable = false)
     private String password;
     @Column(name = "full_name", nullable = false)

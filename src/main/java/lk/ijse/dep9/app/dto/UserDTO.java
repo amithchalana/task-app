@@ -1,6 +1,6 @@
 package lk.ijse.dep9.app.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lk.ijse.dep9.app.util.ValidationGroups;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +14,7 @@ import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 
-@JsonIgnoreProperties(value = "password", allowSetters = true)
+//@JsonIgnoreProperties(value = "password", allowSetters = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

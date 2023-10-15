@@ -1,28 +1,21 @@
 package com.chalana.taskappbackend.api;
 
-
-import com.chalana.taskappbackend.entity.User;
-import com.chalana.taskappbackend.repository.UserRepository;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.chalana.taskappbackend.service.UserService;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
 
-    private UserRepository userRepository;
+    private UserService userService ;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping(produces = "application/json")
-    public List<User> getAllUsers(){
-        return userRepository.findAll();
+    public void createUserAccount(@RequestBody UserDTO user) {
+        userService.createNewUserAccount(user);
     }
-
-
 }

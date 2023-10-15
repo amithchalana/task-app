@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TaskAppBackEndApplication {
+public class AppInitializer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TaskAppBackEndApplication.class, args);
+		SpringApplication.run(AppInitializer.class, args);
 	}
 
 }

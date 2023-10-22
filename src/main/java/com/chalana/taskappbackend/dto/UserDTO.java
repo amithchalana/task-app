@@ -1,5 +1,6 @@
 package com.chalana.taskappbackend.dto;
 
+import com.chalana.taskappbackend.util.ValidationGroups;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +22,7 @@ public class UserDTO implements Serializable {
     @NotBlank(message = "Full name can't be empty or null")
     @Pattern(regexp = "^[A-Za-z ]+$",message = "Invalid name")
     private String fullName;
-    @NotBlank(message = "username can't be empty or null")
+    @NotBlank(message = "username can't be empty or null",groups = ValidationGroups.Create.class)
     private String username ;
     @NotBlank(message = "Password can't be empty or null")
     @Length(min = 5, message = "Password should be at least 5 character long")

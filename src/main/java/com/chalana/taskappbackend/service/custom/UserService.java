@@ -8,4 +8,9 @@ public interface UserService extends SuperService, UserDetailsService {
     void createNewUserAccount(UserDTO userDTO);
 
     UserDTO getUserAccountDetails(String username);
+
+    UserDTO GetUserAccountDetails(String username);
+
+    void updateUserAccountDetails(UserDTO userDTO);
+    void deleteUserAccount(String username);
 }
